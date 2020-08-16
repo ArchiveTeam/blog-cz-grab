@@ -210,6 +210,11 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     return wget.actions.ABORT
   end
   
+  if status_code == 0 and err == "AUTHFAILED" then
+	  print("AUTHFAILED, skipping...")
+	  return wget.actions.EXIT
+  end
+  
   if status_code >= 500
     or (status_code >= 400 and status_code ~= 404)
     or status_code  == 0 then
